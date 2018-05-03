@@ -1,7 +1,7 @@
 #coding=utf-8
 from django.shortcuts import render,redirect
 from .models import *
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password,check_password
 
 def register(req):
 	return render(req,'df_user/register.html')		
@@ -42,5 +42,31 @@ def login(req):
 	context={'title':'用户登录','error_name':0,'error_pwd':0,'uname':uname}
 	return render(req,'df_user/login.html',context)
 
-	
+def login_handle(req):
+	post = req.POST
+	uname=post.get('username')
+	upwd=post.get('pwd')
+	rmb=post.get('rmb',0)
+
+	users=UserInfo.object.filter(uname=uname)
+
+	if len(users)==1:
+		if check_password(upwd,users[0].upwd):
+			red = HttpResponseRedirect('/user/info/')
+
+			if rmb !=0:
+				red.set_cookie('uname',uname)
+			else:
+				red.set_cookie('uname','',max_age=-1)
+			req.session['user_id']=users[0].id
+			req.session['user_name']=uname
+			return red
+		else:
+			cotext = {'title':'用户登录'，'error_name':0,'error_pwd':1,'uname':uname,'upwd':upwd}
+			return render(req, 'df_user/login.html',context)
+	else:
+		context = {'title':'用户登录'，'error_name':1,'error_pwd':0,'uname':uname,'upwd':upwd}
+		return render(req, 'df_user/login.html',context)
+
+
 
