@@ -2,6 +2,7 @@
 
 {%block head%} 
 	<script type="text/javascript" src="/static/js/register.js"></script>
+	<script type="text/javascript">function mySubmit(flag){return flag;}</script>
 	<title>天天生鲜-注册</title>
 {%endblock head%}
 
@@ -19,7 +20,7 @@
 				<a href="/user/login/">登录</a>
 			</div>
 			<div class="reg_form clearfix">
-				<form action="/user/register_handle/" method="POST">
+				<form action="/user/register_handle/" method="POST" onsubmit="return mySubmit(this)">
 					{% csrf_token %}
 				<ul>
 					<li>
@@ -48,7 +49,7 @@
 						<span class="error_tip2">提示信息</span>
 					</li>
 					<li class="reg_sub">
-						<input type="submit" value="注 册" >
+						<input id="submit" type="submit" value="注 册" >
 					</li>
 				</ul>				
 				</form>

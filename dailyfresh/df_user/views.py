@@ -2,6 +2,7 @@
 from django.shortcuts import render,redirect
 from .models import *
 from django.contrib.auth.hashers import make_password,check_password
+from django.http import JsonResponse
 
 def register(req):
 	return render(req,'df_user/register.html')		
@@ -33,9 +34,11 @@ def register_handle(req):
 	return redirect('/user/login/')
 
 def register_exist(req):
-	uname=req.GET.get('uname')
-	count = UserInfo.object.filter(uname=uname).count()
+	uname=req.GET['uname']
+	count = UserInfo.objects.filter(uname=uname).count()
+	#exist_username = UserInfo.objects.exists('uname'=uname)
 	return JsonResponse({'count':count})
+	#return exist_username
 
 def login(req):
 	uname=req.COOKIES.get('uname','')
@@ -48,7 +51,7 @@ def login_handle(req):
 	upwd=post.get('pwd')
 	rmb=post.get('rmb',0)
 
-	users=UserInfo.object.filter(uname=uname)
+	users=UserInfo.objects.filter(uname=uname)
 
 	if len(users)==1:
 		if check_password(upwd,users[0].upwd):
@@ -62,11 +65,14 @@ def login_handle(req):
 			req.session['user_name']=uname
 			return red
 		else:
-			cotext = {'title':'用户登录'，'error_name':0,'error_pwd':1,'uname':uname,'upwd':upwd}
+			context = {'title':'用户登录','error_name':0,'error_pwd':1,'uname':uname,'upwd':upwd}
 			return render(req, 'df_user/login.html',context)
 	else:
-		context = {'title':'用户登录'，'error_name':1,'error_pwd':0,'uname':uname,'upwd':upwd}
+		context = {'title':'用户登录','error_name':1,'error_pwd':0,'uname':uname,'upwd':upwd}
 		return render(req, 'df_user/login.html',context)
+
+def info(req):
+	return render(req,'df_user/user_center_info.html')
 
 
 

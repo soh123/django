@@ -1,15 +1,17 @@
+
 $(function(){
 
-	var error_name = false;
-	var error_password = false;
-	var error_check_password = false;
-	var error_email = false;
-	var error_check = false;
+	var error_name = true;
+	var error_password = true;
+	var error_check_password = true;
+	var error_email = true;
+	var error_check = true;
 
 
 	$('#user_name').blur(function() {
+		console.log('blur');
 		check_user_name();
-		check_exist();
+		
 	});
 
 	$('#pwd').blur(function() {
@@ -42,25 +44,24 @@ $(function(){
 	function check_user_name(){
 		var len = $('#user_name').val().length;
 		if(len<5||len>20)
-		{
-			$('#user_name').next().html('请输入5-20个字符的用户名')
+		{			
+			alert("hello");
+			$('#user_name').next().html('请输入5-20个字符的用户名')			
 			$('#user_name').next().show();
 			error_name = true;
 		}
 		else
-		{
-			$.get('/user/register_exist/?uname='+('#user_name').val(),function(data){
-				if(data.count==1){
+		{					
+			$.get('/user/register_exist/?uname='+$('#user_name').val(),function(data){				
+				if(data.count>=1){
 					$('#user_name').next().html('用户名已经存在').show();
 					error_name = true;
 				}else{
 					$('#user_name').next().hide();
 					error_name = false;
 				}
-
-			});
-
-			
+			});	
+	
 		}
 	}
 
@@ -110,35 +111,31 @@ $(function(){
 		{
 			$('#email').next().html('你输入的邮箱格式不正确')
 			$('#email').next().show();
-			error_check_password = true;
+			error_email = true;
 		}
 
 	}
 
 	
 
-	$('#reg_form').submit(function() {
+	$('#submit').submit(function() {
 		check_user_name();
 		check_pwd();
 		check_cpwd();
 		check_email();
-
-		if(error_name == false && error_password == false && error_check_password == false && error_email == false && error_check == false)
+		if(error_name == false && error_password == false && error_check_password == false && error_email == false)
 		{
-			return true;
+			return mySubmit(true);
 		}
 		else
 		{
-			return false;
+			return mySubmit(false);
 		}
 
 	});
 
+	
+	})
 
+	
 
-
-
-
-
-
-})
