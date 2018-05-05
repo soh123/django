@@ -74,5 +74,11 @@ def login_handle(req):
 def info(req):
 	return render(req,'df_user/user_center_info.html')
 
+def order(req):
+	return render(req,'df_user/user_center_order.html')
+
+def site(req):
+	return render(req,'df_user/user_center_site.html')
+
 
 
