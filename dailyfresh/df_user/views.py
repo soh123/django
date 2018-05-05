@@ -2,7 +2,7 @@
 from django.shortcuts import render,redirect
 from .models import *
 from django.contrib.auth.hashers import make_password,check_password
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponseRedirect
 
 def register(req):
 	return render(req,'df_user/register.html')		
