@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'df_user',
+    'df_goods',
+    
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
+#开发阶段上传目录
+MEDIA_ROOT=os.path.join(BASE_DIR,'static')
+#部署目录
+#MEDIA_ROOT='/var/www/dailyfresh/static'
+#
