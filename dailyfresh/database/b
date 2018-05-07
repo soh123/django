@@ -1,0 +1,6 @@
+INSERT INTO `df_goods_typeinfo` (`id`, `title`, `isDelete`) VALUES (10, '水果', 0);
+INSERT INTO `df_goods_typeinfo` (`id`, `title`, `isDelete`) VALUES (11, '海鲜', 0);
+INSERT INTO `df_goods_typeinfo` (`id`, `title`, `isDelete`) VALUES (12, '蔬菜', 0);
+INSERT INTO `df_goods_typeinfo` (`id`, `title`, `isDelete`) VALUES (13, '进口水果', 0);
+INSERT INTO `df_goods_typeinfo` (`id`, `title`, `isDelete`) VALUES (14, '稀有水果', 0);
+INSERT INTO `df_goods_typeinfo` (`id`, `title`, `isDelete`) VALUES (15, '瓜果', 0);
