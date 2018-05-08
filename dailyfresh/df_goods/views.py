@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import *
+from django.core.paginator import Paginator
 
 def index(req):
 	typelist=TypeInfo.objects.all()
@@ -16,22 +17,22 @@ def index(req):
 	type5=typelist[5].goodsinfo_set.order_by('-id')[0:4]
 	type51=typelist[5].goodsinfo_set.order_by('-gclick')[0:4]
 	context={'title':'首页','guest_cart':1,'type0':type0,'type01':type01,'type1':type1,'type11':type11,'type2':type2,'type21':type21,'type3':type3,'type31':type31,'type4':type4,'type41':type41,'type5':type5,'type51':type51}
-
+	print(type0)
 	return render(req,'df_goods/index.html',context)
 
 def list(req,tid,pindex,sort):
 	typeinfo=TypeInfo.objects.get(pk=int(tid))
 	news=typeinfo.goodsinfo_set.order_by('-id')[0:2]
-	if sort =='1':
+	if sort == '1':
 		goods_list=GoodsInfo.objects.filter(gtype_id=int(tid)).order_by('-id')
-	elif sort=='2':
+	elif sort == '2':
 		goods_list=GoodsInfo.objects.filter(gtype_id=int(tid)).order_by('-gprice')
-	elif sort=='3':
+	elif sort == '3':
 		goods_list=GoodsInfo.objects.filter(gtype_id=int(tid)).order_by('-gclick')
 
 	paginator=Paginator(goods_list,10)
 	page=paginator.page(int(pindex))
-	context={'title':typeinfo.ttitle,'guest_cart':1,'page':page,'paginator':paginator,'typeinfo':typeinfo,'sort':sort,'news':news}
+	context={'title':typeinfo.title,'guest_cart':1,'page':page,'paginator':paginator,'typeinfo':typeinfo,'sort':sort,'news':news}
 
 	return render(req,'df_goods/list.html',context)
 
