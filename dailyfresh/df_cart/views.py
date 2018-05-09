@@ -38,12 +38,11 @@ def add(request,gid,num):
 def edit(request,cart_id,count):
 	try:
 		cart=CartInfo.objects.get(pk=int(cart_id))
-		count1=cart.count=int(count)
+		cart.num=int(count)
 		cart.save()
 		data={'ok':0}
-
 	except Exception as e:
-		data={'ok':count1}
+		data={'ok':count}
 	return JsonResponse(data)
 	
 @user_decorator.idlogin

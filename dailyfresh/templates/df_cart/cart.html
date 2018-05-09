@@ -10,6 +10,7 @@ function cart_del(cart_id){
 			}
 		});
 	}
+	total();
 }
 function total(){
 	var total1=0;
@@ -26,7 +27,7 @@ function total(){
 	$('.total_count1').text(total_count);
 }
 $(function(){
-	
+	total();
 	/*全选，全销*/
 	$('#check_all').click(function(){
 		state=$(this).prop('checked');
@@ -44,7 +45,7 @@ $(function(){
 		}		
 	});
 
-	$('#add').click(function(){
+	$('.add').click(function(){
 		txt=$(this).next();
 		txt.val(parseFloat(txt.val())+1).blur();
 	})
@@ -55,6 +56,8 @@ $(function(){
 	$('.num_show').blur(function(){
 		count = $(this).val();
 		if(count<=0){
+			/*$(this).val(1);*/
+			alert("error");
 			$(this).val(1);
 			$(this).focus();
 			return;
@@ -67,7 +70,7 @@ $(function(){
 				$(this).val(data.ok);
 			}
 		})
-	})
+	});
 	
 });
 </script>
@@ -91,9 +94,9 @@ $(function(){
 		<li class="col05">{{cart.goods.gprice}}元</li>
 		<li class="col06">
 			<div class="num_add">
-				<a href="javascript:;" class="add fl" id="add">+</a>
+				<a href="javascript:;" class="add fl">+</a>
 				<input type="text" class="num_show fl" value="{{cart.num}}">	
-				<a href="javascript:;" class="minus fl" id="minus">-</a>	
+				<a href="javascript:;" class="minus fl">-</a>	
 			</div>
 		</li>
 		<li class="col07"></li>
