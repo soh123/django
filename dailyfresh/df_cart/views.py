@@ -17,19 +17,19 @@ def add(request,gid,num):
 	gid = int(gid)
 	num =int(num)
 
-	carts = CartInf.objects.filter(user_id=uid,goods_id=gid)
+	carts = CartInfo.objects.filter(user_id=uid,goods_id=gid)
 	if len(carts)>=1:
 		cart=carts[0]
 		cart.num = cart.num+num
 	else:
 		cart=CartInfo()
 		cart.user_id=uid
-		cart.goods=gid
+		cart.goods_id=gid
 		cart.num=num
 	cart.save()
 
 	if request.is_ajax():
-		num=CartInfo.objects.filter(user_id=request.session['user_id']).num()
+		num=CartInfo.objects.filter(user_id=request.session['user_id']).count()
 		return JsonResponse({'num':num})
 	else:
 		return redirect('/cart/')

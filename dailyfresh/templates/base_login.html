@@ -1,9 +1,8 @@
 {%extends 'base.html'%}
-
 {%block body%} 
 <div class="header_con">
 		<div class="header">
-			<div class="welcome fl">欢迎来到天天生鲜!</div>
+			<div class="welcome fl">欢迎来到<a href="/index/">天天生鲜!</a></div>
 			<div class="fr">
 				{%if request.session.user_name|default:'' != ''%}
 				<div class="login_btn fl">
@@ -22,18 +21,13 @@
 					<span>|</span>
 					<a href="/user/info/">用户中心</a>
 					<span>|</span>
-					<a href="/user/cart/">我的购物车</a>
+					<a href="/cart/">我的购物车</a>
 					<span>|</span>
-					<a href="/user/order/">我的订单</a>
+					<a href="/cart/order/">我的订单</a>
 				</div>
 			</div>
 		</div>		
 	</div>
-
-
 {%block body2%}
 {%endblock body2%}
-
-
-
 {%endblock body%} 
