@@ -8,3 +8,5 @@ class UserInfo(models.Model):
 	uaddress=models.CharField(max_length=100,default='',verbose_name='地址')
 	uzip=models.CharField(max_length=6,default='',verbose_name='邮编')
 	uphone=models.CharField(max_length=11,default='',verbose_name='手机')
+def __str__(self):
+		return str(self.uname)
