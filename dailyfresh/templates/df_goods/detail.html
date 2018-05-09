@@ -1,4 +1,4 @@
-{%extends 'base_login.html'%}
+{%extends 'base_goods.html'%}
 
 {%block detail%}
 	
@@ -11,7 +11,7 @@
 	</div>
 
 	<div class="goods_detail_con clearfix">
-		<div class="goods_detail_pic fl"><img src="images/goods_detail.jpg"></div>
+		<div class="goods_detail_pic fl"><img src="/static/{{g.gpic}}"></div>
 
 		<div class="goods_detail_list fr">
 			<h3>{{g.gtitle}}</h3>
@@ -45,7 +45,7 @@
 				<ul>
 					{%for g in news%}
 					<li>
-						<a href="/goods/detail/{{g.id}}"><img src="static/images/goods/{{g.pic}}"></a>
+						<a href="/goods/detail/{{g.id}}"><img src="/static/{{g.gpic}}"></a>
 						<h4><a href="/goods/detail/{{g.id}}">{{g.gtitle}}</a></h4>
 						<div class="prize">￥{{g.gprice}}</div>
 					</li>
@@ -84,15 +84,21 @@
 
 		$(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'})
 		$('#add_cart').click(function(){
+			if($('.login_btn').text().indexOf('登录')>=0){
+				alert('请先登录！')；
+				location.href='/user/login/';
+				return;
+			}
 			$(".add_jump").stop().animate({
 				'left': $to_y+7,
 				'top': $to_x+7},
 				"fast", function() {
-					$(".add_jump").fadeOut('fast',function(){
-						$('#show_count').html(2);
-					});
-
+					$(".add_jump").fadeOut('fast',function(){});
 			});
-		})
+			num=parseInt($('.num_show').val());
+			$.get('/cart/add{{g.id}}_'+num+'/',function(data){
+				$('#show_count').text(data.count);
+			});
+		});
 	</script>
 {%endblock detail%}

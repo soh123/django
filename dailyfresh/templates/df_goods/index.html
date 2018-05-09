@@ -4,8 +4,7 @@
 	<script type="text/javascript" src="/static/js/slide.js"></script>
 {%endblock head%}
 
-{%block detail%}
-	
+{%block body%}	
 
 	<div class="search_bar clearfix">
 		<a href="/index/" class="logo fl"><img src="/static/images/logo.png"></a>
@@ -15,10 +14,9 @@
 		</div>
 		<div class="guest_cart fr">
 			<a href="#" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl" id="show_count">1</div>
+			<div class="goods_count fl">1</div>
 		</div>
 	</div>
-
 	<div class="navbar_con">
 		<div class="navbar">
 			<h1 class="fl">全部商品分类</h1>
@@ -227,4 +225,4 @@
 			window.location.href = 'list.html';
 		}
 	</script>
-{%endblock detail%}
+{%endblock body%}
