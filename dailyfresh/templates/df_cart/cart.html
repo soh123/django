@@ -1,5 +1,6 @@
 {%extends 'base_login.html'%}
 {%block head%}
+
 <script type="text/javascript">
 function cart_del(cart_id){		
 	var del = confirm('Are you sure?');
@@ -7,10 +8,11 @@ function cart_del(cart_id){
 		$.get('/cart/delete'+cart_id+'/',function(data){
 			if(data.ok==1){
 				$('ul').remove('#'+cart_id);
+				total();
 			}
 		});
 	}
-	total();
+	
 }
 function total(){
 	var total1=0;
@@ -25,7 +27,10 @@ function total(){
 	});
 	$('#total').text(total1.toFixed(2));
 	$('.total_count1').text(total_count);
+	var goods_count = parseInt($('#total_count1').text());
+	$.cookie('goods_count',goods_count,{ expires: 7, path: '/' });
 }
+
 $(function(){
 	total();
 	/*全选，全销*/
@@ -73,6 +78,7 @@ $(function(){
 	});
 	
 });
+
 </script>
 {%endblock head%}
 {%block body2%}
@@ -106,7 +112,7 @@ $(function(){
 	<ul class="settlements">
 		<li class="col01"><input id="check_all" type="checkbox" checked="checked"></li>
 		<li class="col02">全选</li>
-		<li class="col03">合计(不含运费)：<span>¥</span><em id="total">0</em><br>共计<b class="total_count1">0</b>件商品</li>
+		<li class="col03">合计(不含运费)：<span>¥</span><em id="total">0</em><br>共计<b class="total_count1" id="total_count1">0</b>件商品</li>
 		<li class="col04"><a href="place_order.html">去结算</a></li>
 	</ul>
 {%endblock body2%}	

@@ -1,4 +1,14 @@
 {%extends 'base_login.html'%}
+{%block sc%}
+
+<script type="text/javascript">
+$(function(){
+	$goods_count1 = $.cookie('goods_count');	
+	$('#goods_count').text($goods_count1);
+})
+</script>
+{%endblock sc%}
+
 {%block body2%}
 <div class="search_bar clearfix">
 		<a href="/index/" class="logo fl"><img src="/static/images/logo.png"></a>
@@ -8,7 +18,7 @@
 		</div>
 		<div class="guest_cart fr">
 			<a href="/cart/" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl">1</div>
+			<div class="goods_count fl"><em id ="goods_count">1</em></div>
 		</div>
 	</div>
 
